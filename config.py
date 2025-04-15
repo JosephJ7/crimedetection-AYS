@@ -10,5 +10,5 @@ mongo_db = mongo_client["Group_D"]
 
 
 # PostgreSQL connection string
-PG_CONN_STRING = "postgresql://user:password@localhost:5432/food_waste"
+PG_CONN_STRING = "postgresql://postgres:admin@localhost:5432/Group_D"
 pg_engine = create_engine(PG_CONN_STRING)
