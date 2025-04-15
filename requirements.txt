@@ -14,3 +14,4 @@ scikit-learn==1.6.1
 plotly==6.0.1
 dagster==1.10.10
 dagit==1.10.10
+pyjstat==2.4.0
