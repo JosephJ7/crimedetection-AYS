@@ -110,7 +110,7 @@ def transform_and_store(context,fetched):
 
 # Step 3: Visualizations and Model
 @op(ins={"transformed": In(bool)}, config_schema={"table_name": str})
-def visualize_and_model(context,transformed):
+def visualize(context,transformed):
     try:
         table_name = context.op_config["table_name"]
         
@@ -118,12 +118,11 @@ def visualize_and_model(context,transformed):
             logger.warning("Skipping analysis since data transformation failed.")
             return
         
-        logger.info("Reading cleaned data from PostgreSQL...")
-        df = pd.read_sql(f'SELECT * FROM {table_name}', pg_engine)
-        logger.info(f"Data :{df.head()}")
-
-        logger.info("Generating visualizations and running model...")
         if table_name == "crime_offence_garda":
+            logger.info("Reading cleaned data from PostgreSQL...")
+            df = pd.read_sql(f'SELECT * FROM {table_name}', pg_engine)
+
+            logger.info("Generating visualizations...")
             # --- Trend Analysis ---
             logger.info("Trend Analysis: Crime trends over time per offence")
             
@@ -202,6 +201,10 @@ def visualize_and_model(context,transformed):
 
 
         else:
+            logger.info("Reading cleaned data from PostgreSQL...")
+            df = pd.read_sql(f'SELECT * FROM {table_name}', pg_engine)
+
+            logger.info("Generating visualizations...")
             # 1. Line chart of total crimes per age group over time
             age_year_trend = df.groupby(['year', 'suspected_offender_age'])['count'].sum().reset_index()
             fig1 = px.line(age_year_trend, x='year', y='count', color='suspected_offender_age',
@@ -242,4 +245,4 @@ def visualize_and_model(context,transformed):
 def data_pipeline():
     fetched  = fetch_and_store_data()
     transformed = transform_and_store(fetched)
-    visualize_and_model(transformed)
+    visualize(transformed)
