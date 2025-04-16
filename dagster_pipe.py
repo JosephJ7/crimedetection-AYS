@@ -151,38 +151,89 @@ def visualize_and_model(context,transformed):
 
             fig3.update_traces(textinfo="percent+value")
             fig3.show()
+            
+
+            
+            # 3.1 Line chart by quarter
+            quarterly = df.groupby(['year', 'quarter_number', 'offence_type'])['count'].sum().reset_index()
+            quarterly['quarter'] = quarterly['year'].astype(str) + '-' + quarterly['quarter_number']
+            fig7 = px.line(quarterly, x='quarter', y='count', color='offence_type',
+                        title="Quarterly Crime Trends by Offence Type")
+            fig7.update_layout(xaxis_tickangle=-45)
+            fig7.show()
+
+            # 3.2 Bar chart: average crimes per quarter
+            avg_quarter = df.groupby(['quarter_number', 'offence_type'])['count'].mean().reset_index()
+            fig8 = px.bar(avg_quarter, x='quarter_number', y='count', color='offence_type',
+                        title="Average Crime per Quarter by Offence Type")
+            fig8.show()
+
+            # 3.3 Box plot: variation in crimes across quarters
+            fig9 = px.box(df, x='quarter_number', y='count', color='offence_type',
+                        title="Crime Distribution per Quarter (Box Plot)")
+            fig9.show()
+            
+            # Manual tagging of urban vs rural
+            urban_divs = ['Dublin Metropolitan Region', 'Cork City', 'Galway']
+            df['region_type'] = df['garda_division'].apply(lambda x: 'Urban' if x in urban_divs else 'Rural')
+
+            # Filter violent offences
+            violent = df[df['offence_type'].isin(['Homicide offences', 
+                                                'Attempts or threats to murder, assaults, harassments and related offences'])]
+
+            # 4.1 Line chart: Urban vs Rural trends for violent crimes
+            agg = violent.groupby(['year', 'region_type'])['count'].sum().reset_index()
+            fig10 = px.line(agg, x='year', y='count', color='region_type',
+                            title="Violent Crimes in Urban vs Rural Areas Over Time")
+            fig10.show()
+
+            # 4.2 Facet by offence type
+            facet = violent.groupby(['year', 'region_type', 'offence_type'])['count'].sum().reset_index()
+            fig11 = px.line(facet, x='year', y='count', color='region_type',
+                            facet_col='offence_type', title="Urban vs Rural by Offence Type")
+            fig11.show()
+
+            # 4.3 Bar chart for most recent year
+            latest = violent[violent['year'] == violent['year'].max()]
+            fig12 = px.bar(latest, x='garda_division', y='count', color='region_type',
+                        title=f"Violent Crime by Division in {latest['year'].max()}")
+            fig12.update_layout(xaxis_tickangle=-45)
+            fig12.show()
 
 
+        else:
+            # 1. Line chart of total crimes per age group over time
+            age_year_trend = df.groupby(['year', 'suspected_offender_age'])['count'].sum().reset_index()
+            fig1 = px.line(age_year_trend, x='year', y='count', color='suspected_offender_age',
+                        title="Detected Crimes by Age Group Over Time")
+            fig1.show()
 
-        # # --- Regional Pattern Analysis ---
-        # logger.info("Regional Pattern Analysis: Crime by Garda Division and Offence")
-        # regional_df = df.groupby(['garda_division', 'offence_type'])['count'].sum().reset_index()
-        # fig = px.bar(regional_df, x='garda_division', y='count', color='offence_type',title="Total Crime by Garda Division and Offence Type")
-        # fig.update_layout(xaxis_tickangle=-45)
-        # fig.show()
-        
-        # # --- Seasonal Trend Analysis ---
-        # logger.info("Seasonal Trend Analysis: Offence type by quarter")
-        # seasonal_df = df.groupby(['quarter_number', 'offence_type'])['count'].mean().reset_index()
-        # fig = px.bar(seasonal_df, x='quarter_number', y='count', color='offence_type',title="Average Quarterly Crime by Offence Type")
-        # fig.show()
+            # 2. Heatmap of crimes per age and year
+            heatmap_data = df.pivot_table(index='suspected_offender_age', columns='year', values='count', aggfunc='sum')
+            fig2 = px.imshow(heatmap_data, color_continuous_scale='Viridis',
+                            title="Heatmap: Age Group vs Year (Crime Count)")
+            fig2.show()
 
-        # # --- Urban-Rural Comparison (Manual Tag) ---
-        # # Note: You would ideally have a column or mapping that classifies divisions as urban/rural.
-        # # For now, we’ll mock a classification:
-        # urban_divisions = ['Dublin Metropolitan Region', 'Cork City', 'Galway']
-        # df['region_type'] = df['garda_division'].apply(
-        #     lambda x: 'Urban' if x in urban_divisions else 'Rural'
-        # )
+            # 3. Bar chart of age distribution in the latest year
+            latest_year = df['year'].max()
+            latest_df = df[df['year'] == latest_year].groupby('suspected_offender_age')['count'].sum().reset_index()
+            fig3 = px.bar(latest_df, x='suspected_offender_age', y='count',
+                        title=f"Crime Count by Age Group in {latest_year}")
+            fig3.show()
+            
 
-        # violent_crimes = ['Attempts or threats to murder, assaults, harassments and related offences','Homicide offences']
+            # 11. Animated bar chart: Age distribution of crime over time
+            fig11 = px.bar(age_year_trend, x='suspected_offender_age', y='count',
+                        animation_frame='year', color='suspected_offender_age',
+                        title="Crime by Age Group (Animated Over Time)")
+            fig11.show()
 
-        # urban_rural_df = df[df['offence_type'].isin(violent_crimes)].groupby(
-        #     ['year', 'region_type', 'offence_type'])['count'].sum().reset_index()
-
-        # fig = px.line(urban_rural_df, x='year', y='count',color='region_type', facet_col='offence_type',title="Urban vs Rural Trends for Violent Crimes Over Time")
-        # fig.show()
-
+            # 12. Area chart showing proportional age-based contribution over time
+            age_year_trend['total'] = age_year_trend.groupby('year')['count'].transform('sum')
+            age_year_trend['proportion'] = age_year_trend['count'] / age_year_trend['total']
+            fig12 = px.area(age_year_trend, x='year', y='proportion', color='suspected_offender_age',
+                            title="Proportional Contribution of Age Groups to Annual Crime")
+            fig12.show()
 
     except Exception as e:
         logger.error(f"Error in visualize_and_model: {e}")
@@ -192,29 +243,3 @@ def data_pipeline():
     fetched  = fetch_and_store_data()
     transformed = transform_and_store(fetched)
     visualize_and_model(transformed)
-
-
-
-# # Plot with Seaborn
-        # numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns
-        # if len(numeric_cols) >= 2:
-        #     sns.pairplot(df[numeric_cols[:4]])
-        #     plt.suptitle("Seaborn Pairplot", y=1.02)
-        #     plt.show()
-        #     # plt.savefig("seaborn_pairplot.png")
-
-        #     # Plotly scatter
-        #     fig = px.scatter(df, x=numeric_cols[0], y=numeric_cols[1], title='Plotly Scatter')
-        #     fig.show() 
-            
-        #     fig = px.histogram(df, x=df.columns[0])
-        #     fig.show() 
-            # fig.write_html("plotly_scatter.html")
-
-            # Linear Regression
-            # X = df[[numeric_cols[0]]]
-            # y = df[numeric_cols[1]]
-            # model = LinearRegression()
-            # model.fit(X, y)
-            # r2 = model.score(X, y)
-            # logger.info(f"Linear Regression R² score: {r2:.4f}")
