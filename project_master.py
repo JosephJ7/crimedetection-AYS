@@ -36,5 +36,5 @@ for config in dataset_configs:
         }
     }
 
-    result = data_pipeline.execute_in_process(run_config=run_config)
-    print(f"Pipeline run for {config['table_name']} was {'successful' if result.success else 'unsuccessful'}")
+    # result = data_pipeline.execute_in_process(run_config=run_config)
+    # print(f"Pipeline run for {config['table_name']} was {'successful' if result.success else 'unsuccessful'}")
