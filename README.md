@@ -6,14 +6,16 @@ An interactive Streamlit dashboard for visualizing crime statistics in Ireland b
 ## 📁 Project Structure
 
 
+crimedetection-AYS/
 ├── dashboard/              # Streamlit dashboard app
-├── data_pipeline/          # Dagster pipeline for ETL
-├── config.py               # Configuration (e.g., database connection)
+│   └── app.py              # Main Streamlit app
+├── data_pipeline/          # Dagster data pipeline code
+│   ├── project_master.py   # Combined Dagster pipeline job
+│   └── visualizations.py   # All chart functions used in the dashboard
+├── config.py               # Database config (e.g., PostgreSQL engine)
 ├── requirements.txt        # Python dependencies
-├── README.md               # You're here!
-└── ...
-
-
+├── README.md               # Project documentation
+└── .venv/                  # (Optional) Virtual environment
 
 
 ## 🚀 Features
