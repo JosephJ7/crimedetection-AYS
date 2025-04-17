@@ -8,7 +8,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 from pyjstat import pyjstat
 from config import mongo_db,pg_engine
-from data_pipline.visualizations import *
+from data_pipeline.visualizations import *
 
 
 logger = get_dagster_logger()

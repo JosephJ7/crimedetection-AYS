@@ -1,2 +1,2 @@
 ﻿load_from:
-  - python_file: project_master.py
+  - python_file: data_pipeline/project_master.py
