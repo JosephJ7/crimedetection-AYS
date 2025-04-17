@@ -21,7 +21,7 @@ def fetch_and_store_data(context):
         url = context.op_config["url"]
         table_name = context.op_config["table_name"]
         
-        logger.info(f"Started Fetching records")
+        logger.info(f"Started Fetching records for table - {table_name}")
         
         response = requests.get(url)
         response.raise_for_status() # will raise an error for 4xx/5xx
@@ -33,18 +33,18 @@ def fetch_and_store_data(context):
         # Convert JSON-stat to a flat table pandas Dataframe
         dataset = pyjstat.Dataset.read(json_io)
         df = dataset.write('dataframe')
-        logger.info(f"Fetched {len(df)} records")
+        logger.info(f"Fetched {len(df)} records for table - {table_name}")
 
         mongo_db[table_name].drop()  # clear old data
         
         # Store the raw data in MongoDB
         records = df.to_dict(orient='records')
         mongo_db[table_name].insert_many(records)
-        logger.info("Stored data in MongoDB")
+        logger.info(f"Stored data in MongoDB for table - {table_name}")
         
         return True
     except Exception as e:
-        logger.error(f"Error in fetch_and_store_data: {e}")
+        logger.error(f"Error in fetch_and_store_data: {e} ")
         return False
 
 # Step 2: Read from MongoDB, ETL, store in PostgreSQL
@@ -59,7 +59,7 @@ def transform_and_store(context,fetched):
         records = list(mongo_db[table_name].find())
         df = pd.DataFrame(records)
 
-        logger.info("Starting transformations")
+        logger.info(f"Starting transformations for table - {table_name}")
 
         # ETL: Example transformations
         # Drop irrelevant columns
@@ -98,10 +98,10 @@ def transform_and_store(context,fetched):
         # no negative count
         df = df[df["count"] >= 0]
         
-        logger.info("Finished cleaning")
+        logger.info(f"Finished cleaning for table - {table_name}")
         
         df.to_sql(table_name, pg_engine, if_exists='replace', index=False)
-        logger.info("Stored cleaned data in PostgreSQL")
+        logger.info(f"Stored cleaned data in PostgreSQL for table - {table_name}")
 
         return True
     except Exception as e:
@@ -118,8 +118,8 @@ def visualize(context,transformed):
             logger.warning("Skipping analysis since data transformation failed.")
             return
         
+        logger.info(f"Reading cleaned data from PostgreSQL from table - {table_name}...")
         if table_name == "crime_offence_garda":
-            logger.info("Reading cleaned data from PostgreSQL...")
             df = pd.read_sql(f'SELECT * FROM {table_name}', pg_engine)
 
             logger.info("Generating visualizations...")
@@ -135,7 +135,6 @@ def visualize(context,transformed):
             crime_distribution_per_quarter(df)
 
         else:
-            logger.info("Reading cleaned data from PostgreSQL...")
             df = pd.read_sql(f'SELECT * FROM {table_name}', pg_engine)
 
             logger.info("Generating visualizations...")
