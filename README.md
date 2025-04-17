@@ -1,7 +1,4 @@
 
-
----
-
 ```markdown
 # 📊 Ireland Crime Detection Dashboard
 
