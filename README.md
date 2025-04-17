@@ -5,7 +5,7 @@ An interactive Streamlit dashboard for visualizing crime statistics in Ireland b
 
 ## 📁 Project Structure
 
-
+```bash
 crimedetection-AYS/
 ├── dashboard/              # Streamlit dashboard app
 │   └── app.py              # Main Streamlit app
@@ -16,7 +16,7 @@ crimedetection-AYS/
 ├── requirements.txt        # Python dependencies
 ├── README.md               # Project documentation
 └── .venv/                  # (Optional) Virtual environment
-
+```
 
 ## 🚀 Features
 
@@ -87,7 +87,7 @@ pg_engine = create_engine("postgresql://user:password@localhost:5432/dbname")
 ```
 
 
-## 📝 License
+## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
 
