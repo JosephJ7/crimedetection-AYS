@@ -1,2 +1,4 @@
 ﻿load_from:
   - python_file: data_pipeline/project_master.py
+  - python_file: data_pipeline/dagster_pipe.py
+  
