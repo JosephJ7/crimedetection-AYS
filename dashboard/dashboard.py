@@ -17,9 +17,7 @@ dataset = st.sidebar.radio("Select Dataset", ["Offence Type", "Offender Age"])
 # Disable UI elements when Dagster is running
 dagster_running = False
 
-# -----------------------------
-# 📌 Dataset: Offence Type
-# -----------------------------
+
 if dataset == "Offence Type":
     df = pd.read_sql("SELECT * FROM crime_offence_garda", pg_engine)
     st.header("🔍 Crime by Offence Type")
@@ -57,9 +55,7 @@ if dataset == "Offence Type":
     if viz in charts:
         st.plotly_chart(charts[viz](df), use_container_width=True)
 
-# -----------------------------
-# 📌 Dataset: Offender Age
-# -----------------------------
+
 elif dataset == "Offender Age":
     df = pd.read_sql("SELECT * FROM crime_offence_age", pg_engine)
     st.header("🔍 Crime by Offender Age")
