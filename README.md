@@ -12,9 +12,9 @@ An interactive Streamlit dashboard for visualizing crime statistics in Ireland b
 ├── requirements.txt        # Python dependencies
 ├── README.md               # You're here!
 └── ...
-```
 
----
+
+
 
 ## 🚀 Features
 
@@ -24,7 +24,7 @@ An interactive Streamlit dashboard for visualizing crime statistics in Ireland b
 - 📊 Line charts, bar charts, heatmaps, area charts, and animations
 - ⚙️ Clean sidebar controls for dataset selection and job status
 
----
+
 
 ## 🛠️ Installation
 
