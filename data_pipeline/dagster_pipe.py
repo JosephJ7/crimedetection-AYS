@@ -1,11 +1,8 @@
-from dagster import job, op, In, Out, get_dagster_logger,graph
+from dagster import  op, In, Out, get_dagster_logger,graph
 import requests
 import pandas as pd
 import json
 import io
-import seaborn as sns
-import plotly.express as px
-import matplotlib.pyplot as plt
 from pyjstat import pyjstat
 from config import mongo_db,pg_engine
 from data_pipeline.visualizations import *
