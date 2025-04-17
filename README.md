@@ -37,15 +37,6 @@ git clone https://github.com/<your-username>/crimedetection-AYS.git
 cd crimedetection-AYS
 ```
 
-### Create and activate a virtual environment 
-```bash
-# Create virtual environment using Python 3.12
-python3.12 -m venv .venv
-source .venv/bin/activate      
-# On Windows: .venv\Scripts\activate
-# On macOS/Linux: source .venv/bin/activate
-```
-
 ### Create and activate a virtual environment (Python 3.12)
 
 ```bash
