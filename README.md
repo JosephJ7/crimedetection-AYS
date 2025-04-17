@@ -1,12 +1,11 @@
 
-```markdown
 # 📊 Ireland Crime Detection Dashboard
 
 An interactive Streamlit dashboard for visualizing crime statistics in Ireland by offence type and offender age. Integrated with Dagster for running data pipelines.
 
 ## 📁 Project Structure
 
-```
+
 ├── dashboard/              # Streamlit dashboard app
 ├── data_pipeline/          # Dagster pipeline for ETL
 ├── config.py               # Configuration (e.g., database connection)
