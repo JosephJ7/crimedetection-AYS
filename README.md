@@ -8,7 +8,7 @@ An interactive Streamlit dashboard for visualizing crime statistics in Ireland b
 ```bash
 crimedetection-AYS/
 ├── dashboard/              # Streamlit dashboard app
-│   └── dashboard.py              # Main Streamlit app
+│   └── dashboard.py        # Main Streamlit app
 ├── data_pipeline/          # Dagster data pipeline code
 │   ├── project_master.py   # Combined Dagster pipeline job
 │   ├── dagster_pipe.py     # Individual Dagster pipeline job
