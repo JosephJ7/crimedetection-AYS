@@ -8,14 +8,17 @@ An interactive Streamlit dashboard for visualizing crime statistics in Ireland b
 ```bash
 crimedetection-AYS/
 ├── dashboard/              # Streamlit dashboard app
-│   └── app.py              # Main Streamlit app
+│   └── dashboard.py              # Main Streamlit app
 ├── data_pipeline/          # Dagster data pipeline code
 │   ├── project_master.py   # Combined Dagster pipeline job
+│   ├── dagster_pipe.py     # Individual Dagster pipeline job
+│   ├── repository.py       # Repository Definition 
 │   └── visualizations.py   # All chart functions used in the dashboard
-├── config.py               # Database config (e.g., PostgreSQL engine)
+├── config.py               # Database config (e.g., PostgreSQL engine,MongoDB)
 ├── requirements.txt        # Python dependencies
 ├── README.md               # Project documentation
-└── .venv/                  # (Optional) Virtual environment
+└── .venv/                  # Virtual environment (to be created by user)
+└── workspace.yaml          # Connects Dagster to pipeline code.
 ```
 
 ## 🚀 Features
@@ -26,8 +29,6 @@ crimedetection-AYS/
 - 📊 Line charts, bar charts, heatmaps, area charts, and animations
 - ⚙️ Clean sidebar controls for dataset selection and job status
 
-
-
 ## 🛠️ Installation
 
 ### Clone the repository
@@ -36,10 +37,32 @@ git clone https://github.com/<your-username>/crimedetection-AYS.git
 cd crimedetection-AYS
 ```
 
-### Create and activate a virtual environment (optional but recommended)
+### Create and activate a virtual environment 
 ```bash
-python -m venv .venv
-source .venv/bin/activate      # On Windows: .venv\Scripts\activate
+# Create virtual environment using Python 3.12
+python3.12 -m venv .venv
+source .venv/bin/activate      
+# On Windows: .venv\Scripts\activate
+# On macOS/Linux: source .venv/bin/activate
+```
+
+### Create and activate a virtual environment (Python 3.12)
+
+```bash
+# Create virtual environment using Python 3.12
+python3.12 -m venv .venv
+```
+
+### ▶️ Activate the virtual environment
+
+#### On macOS/Linux:
+```bash
+source .venv/bin/activate
+```
+
+#### On Windows:
+```bash
+.venv\Scripts\activate
 ```
 
 ### Install dependencies
