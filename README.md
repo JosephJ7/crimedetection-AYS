@@ -44,7 +44,7 @@ cd crimedetection-AYS
 python3.12 -m venv .venv
 ```
 
-### ▶️ Activate the virtual environment
+### Activate the virtual environment
 
 #### On macOS/Linux:
 ```bash
@@ -60,7 +60,24 @@ source .venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+## 🧰 Configuration
 
+Ensure your `config.py` file contains the correct PostgreSQL database configuration and MongoDB configuration :
+
+```python
+from pymongo import MongoClient
+from sqlalchemy import create_engine
+
+# MongoDB connection 
+MONGO_URI = <your-mongoDB-connection-string> 
+mongo_client = MongoClient(MONGO_URI)
+mongo_db = mongo_client[<your-database-name>]
+
+
+# PostgreSQL connection string
+PG_CONN_STRING = "postgresql://<your-db-user-name>:<your-db-password>@localhost:5432/<your-database-name>"
+pg_engine = create_engine(PG_CONN_STRING)
+```
 
 ## 🧪 Running the App
 
@@ -90,15 +107,7 @@ dagster job execute -f data_pipeline/project_master.py -j combined_pipeline_job
 > _(Optional - Add screenshots of your dashboard here for visual context)_
 
 
-## 🧰 Configuration
 
-Ensure your `config.py` file contains the correct PostgreSQL database configuration:
-
-```python
-from sqlalchemy import create_engine
-
-pg_engine = create_engine("postgresql://user:password@localhost:5432/dbname")
-```
 
 
 ## 📜 License
