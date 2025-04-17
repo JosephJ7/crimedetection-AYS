@@ -45,7 +45,6 @@ source .venv/bin/activate      # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
----
 
 ## 🧪 Running the App
 
@@ -59,7 +58,6 @@ streamlit run dashboard/app.py
 dagster job execute -f data_pipeline/project_master.py -j combined_pipeline_job
 ```
 
----
 
 ## 🧩 Technologies Used
 
@@ -70,13 +68,11 @@ dagster job execute -f data_pipeline/project_master.py -j combined_pipeline_job
 - **PostgreSQL**
 - **pandas**
 
----
 
 ## 📸 Screenshots
 
 > _(Optional - Add screenshots of your dashboard here for visual context)_
 
----
 
 ## 🧰 Configuration
 
@@ -88,28 +84,20 @@ from sqlalchemy import create_engine
 pg_engine = create_engine("postgresql://user:password@localhost:5432/dbname")
 ```
 
----
 
 ## 📝 License
 
 This project is licensed under the [MIT License](LICENSE).
 
----
 
 ## 🙋‍♂️ Author
 
 - **Joseph J.** – [GitHub Profile](https://github.com/JosephJ7)
 
----
 
 ## 📬 Contact
 
 For feedback, issues, or suggestions:  
-📧 joseph@example.com  
+📧 josephjacobie2001@gmail.com  
 📁 Or create an [issue](https://github.com/JosephJ7/crimedetection-AYS/issues)
 
----
-
-```
-
-Let me know if you'd like this tailored further to your specific content or if you'd like me to generate a version automatically filled in with your current repository info.
