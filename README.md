@@ -83,13 +83,15 @@ pg_engine = create_engine(PG_CONN_STRING)
 
 ### 1. Start the Streamlit Dashboard
 ```bash
-streamlit run dashboard/app.py
+streamlit run .\dashboard\dashboard.py
 ```
 
 ### 2. Run the Dagster Pipeline (manually or via button in UI)
+#### To run the pipeline manually:
 ```bash
 dagster job execute -f data_pipeline/project_master.py -j combined_pipeline_job
 ```
+Alternatively, click the "🚀 Run Dagster Job" button from the sidebar in the dashboard to trigger it.
 
 
 ## 🧩 Technologies Used
@@ -99,6 +101,7 @@ dagster job execute -f data_pipeline/project_master.py -j combined_pipeline_job
 - **Plotly**
 - **Dagster**
 - **PostgreSQL**
+- **MongoDB**
 - **pandas**
 
 
