@@ -54,7 +54,7 @@ cd crimedetection-AYS
 
 ```bash
 # Create virtual environment using Python 3.12
-python3.12 -m venv .venv
+python -m venv .venv
 ```
 
 ### Activate the virtual environment
@@ -75,7 +75,8 @@ pip install -r requirements.txt
 ```
 ## 🧰 Configuration
 
-Ensure your `config.py` file contains the correct PostgreSQL database configuration and MongoDB configuration :
+
+Create a file `config.py` and ensure your file contains the correct PostgreSQL database configuration and MongoDB configuration :
 
 ```python
 from pymongo import MongoClient
@@ -106,6 +107,15 @@ dagster job execute -f data_pipeline/project_master.py -j combined_pipeline_job
 ```
 Alternatively, click the "🚀 Run Dagster Job" button from the sidebar in the dashboard to trigger it.
 
+#### To run the pipeline from Dagster UI:
+Start the processor on one terminal.
+```bash
+dagster-daemon run
+```
+On the other terminal , start the Dagster UI using this command:
+```bash
+dagster-webserver
+```
 
 ## 🧩 Technologies Used
 
