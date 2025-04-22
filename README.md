@@ -50,7 +50,7 @@ git clone https://github.com/<your-username>/crimedetection-AYS.git
 cd crimedetection-AYS
 ```
 
-### Create and activate a virtual environment (Python 3.12)
+### Create a virtual environment (Python 3.12)
 
 ```bash
 # Create virtual environment using Python 3.12
