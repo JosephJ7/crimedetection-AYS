@@ -2,7 +2,9 @@
 
 # 📊 Ireland Crime Detection Dashboard
 
-An interactive Streamlit dashboard for visualizing crime statistics in Ireland by offence type and offender age. Integrated with Dagster for running data pipelines.
+An interactive data dashboard built with Streamlit for exploring and analyzing crime statistics in Ireland. It offers interactive visualizations based on offence types and the age distribution of suspected offenders. The data pipeline is powered by Dagster, automating the ETL (Extract, Transform, Load) workflow for consistent and up-to-date data delivery.
+
+The system ingests data from official APIs using the JSON-STAT standard and processes it through a Dagster-powered ETL pipeline. MongoDB is used for intermediate storage and transformation, while PostgreSQL serves as the queryable backend for the dashboard. Final visualizations are rendered through Plotly and served interactively using Streamlit.
 
 ## 📁 Project Structure
 
