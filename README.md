@@ -107,7 +107,9 @@ Alternatively, click the "🚀 Run Dagster Job" button from the sidebar in the d
 
 ## 📸 Screenshots
 
-![alt text](dashboard.png)
+<p align="center">
+  <img src="static/img/dashboard.png" alt="Dashboard Preview" width="800"/>
+</p>
 
 
 
