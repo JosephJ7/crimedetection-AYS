@@ -1,4 +1,4 @@
-[![License: CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
+
 
 # 📊 Ireland Crime Detection Dashboard
 
@@ -29,6 +29,16 @@ crimedetection-AYS/
 - 🗃️ Filter by offence type, age group, Garda division, and more
 - 📊 Line charts, bar charts, heatmaps, area charts, and animations
 - ⚙️ Clean sidebar controls for dataset selection and job status
+
+## 📂 Data Source
+
+This project uses the following datasets provided by Ireland's Central Statistics Office via data.gov.ie:
+
+- [Dataset 1: Recorded Crime Incidents (CJQ06)](https://data.gov.ie/dataset/cjq06-recorded-crime-incidents) – Contains statistics on recorded crime incidents by Garda division and offence type.
+- [Dataset 2: Detected Recorded Crime by Age of Suspected Offenders (RCD09)](https://data.gov.ie/dataset/rcd09-detected-recorded-crime-by-age-of-suspected-offenders) – Provides breakdowns of detected crimes by the age group of suspected offenders.
+
+These datasets are periodically retrieved and processed via a Dagster pipeline to support the visualizations shown in the dashboard.
+
 
 ## 🛠️ Installation
 
