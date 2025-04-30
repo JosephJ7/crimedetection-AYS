@@ -54,7 +54,7 @@ cd crimedetection-AYS
 
 ```bash
 # Create virtual environment using Python 3.12
-python -m venv .venv
+python3 -m venv .venv
 ```
 
 ### Activate the virtual environment
